@@ -3,8 +3,8 @@ package org.example.resources;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.entities.Publicacao;
-import org.example.repositories.PublicacaoRepository;
+import org.example.entities.dtos.Publicacao;
+import org.example.repositories.daos.PublicacaoRepository;
 
 import java.util.List;
 

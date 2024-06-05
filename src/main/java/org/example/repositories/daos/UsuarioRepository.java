@@ -1,6 +1,8 @@
-package org.example.repositories;
+package org.example.repositories.daos;
 
-import org.example.entities.Usuario;
+import org.example.entities.dtos.Usuario;
+import org.example.repositories._BaseRepository;
+import org.example.repositories._Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class UsuarioRepository extends _BaseRepository implements _Logger<UsuarioRepository>{
+public class UsuarioRepository extends _BaseRepository implements _Logger<UsuarioRepository> {
     public static final String TB_NAME = "USUARIO";
 
     public static final Map<String, String> TB_COLUMNS = Map.of(

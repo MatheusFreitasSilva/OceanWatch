@@ -1,6 +1,8 @@
-package org.example.entities;
+package org.example.entities.dtos;
 
-public class Publicacao extends _BaseEntity{
+import org.example.entities._BaseEntity;
+
+public class Publicacao extends _BaseEntity {
     private String titulo;
     private String descricao;
     private String urlImage;

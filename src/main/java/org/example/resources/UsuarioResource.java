@@ -3,17 +3,20 @@ package org.example.resources;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.entities.Usuario;
-import org.example.repositories.UsuarioRepository;
+import org.example.entities.dtos.Usuario;
+import org.example.repositories.daos.UsuarioRepository;
+import org.example.services.UsuarioService;
 import java.util.List;
 
 @Path("usuario")
 public class UsuarioResource {
 
     public UsuarioRepository usuarioRepository;
+    public UsuarioService usuarioServie;
 
     public UsuarioResource(){
         usuarioRepository = new UsuarioRepository();
+        usuarioServie = new UsuarioService();
     }
 
     @GET
@@ -36,7 +39,7 @@ public class UsuarioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Create(Usuario usuario){
         try {
-            usuarioRepository.Create(usuario);
+            usuarioServie.Create(usuario);
             return Response.status(Response.Status.CREATED).build();
         } catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -48,7 +51,7 @@ public class UsuarioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Update(@PathParam("id") int id, Usuario usuario){
         try {
-            usuarioRepository.Update(id, usuario);
+            usuarioServie.Update(id, usuario);
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

@@ -1,6 +1,11 @@
-package org.example.entities;
+package org.example.entities.dtos;
 
-public class Usuario extends _BaseEntity{
+import org.example.entities._BaseEntity;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+public class Usuario extends _BaseEntity {
     private String nome;
     private String usuario;
     private String email;
@@ -64,5 +69,19 @@ public class Usuario extends _BaseEntity{
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 "} ";
+    }
+
+    public Map<Boolean, ArrayList<String>> validate() {
+        var errors = new ArrayList<String>();
+
+
+        if (nome == null || nome.isBlank())
+            errors.add("Nome do produto não pode ser vazio");
+        if (usuario == null || usuario.isBlank())
+            errors.add("Usuário não pode ser vazio");
+
+        return !errors.isEmpty() ?
+                Map.of(false, errors) :
+                Map.of(true, errors);
     }
 }
