@@ -1,5 +1,11 @@
 package org.example.entities.dtos;
 
+
+/**
+ * Classe EmailValidationResponse que representa a resposta de uma validação de email através da API EmailValidation.
+ * Contém informações sobre o endereço de email, usuário, verificação SMTP,
+ * existência de registro MX e validade do formato.
+ */
 public class EmailValidationResponse {
     private String email;
     private String user;

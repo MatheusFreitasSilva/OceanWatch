@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Classe Publicacao que representa uma publicação.
+ * Estende a classe _BaseEntity para incluir um identificador único.
+ * Contém informações sobre o título, descrição, URL da imagem, data de publicação,
+ * ID do usuário, se é uma denúncia e ID do endereço.
+ */
 public class Publicacao extends _BaseEntity {
     private String titulo;
     private String descricao;
@@ -108,15 +114,20 @@ public class Publicacao extends _BaseEntity {
                 "} ";
     }
 
+    /**
+     * Valida os dados da publicação.
+     * Verifica se o título e a descrição não estão vazios.
+     *
+     * @return um mapa com o resultado da validação. A chave é um booleano indicando sucesso ou falha,
+     * e o valor é uma lista de mensagens de erro, se houver.
+     */
     public Map<Boolean, ArrayList<String>> validate() {
         var errors = new ArrayList<String>();
-
 
         if (titulo == null || titulo.isBlank())
             errors.add("Titulo da publicação não pode ser vazio");
         if (descricao == null || descricao.isBlank())
             errors.add("Descrição não pode ser vazia");
-
 
         return !errors.isEmpty() ?
                 Map.of(false, errors) :

@@ -7,18 +7,32 @@ import org.example.entities.dtos.ViaCepApiResponse;
 import org.example.repositories.daos.EnderecoRepository;
 import org.example.services.EnderecoService;
 
-
+/**
+ * Classe EnderecoResource que define os endpoints da API relacionados aos endereços.
+ */
 @Path("endereco")
 public class EnderecoResource {
-
+    // Repositório de endereços
     public EnderecoRepository enderecoRepository;
+    // Serviço de endereços
     public EnderecoService enderecoService;
 
+    /**
+     * Construtor padrão da classe EnderecoResource.
+     * Inicializa o repositório e o serviço de endereços.
+     */
     public EnderecoResource() {
         enderecoRepository = new EnderecoRepository();
         enderecoService = new EnderecoService();
     }
 
+    /**
+     * Endpoint para recuperar um endereço pelo CEP.
+     *
+     * @param cep o CEP do endereço a ser recuperado.
+     * @return um Response contendo o endereço em formato JSON, se encontrado, ou um status NOT_FOUND se não encontrado.
+     * @throws Exception se ocorrer algum erro durante a busca do endereço.
+     */
     @GET
     @Path("/cep/{cep}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +43,12 @@ public class EnderecoResource {
                 Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * Endpoint para criar um novo endereço.
+     *
+     * @param endereco o objeto ViaCepApiResponse representando o endereço a ser criado.
+     * @return um Response com o status CREATED se o endereço for criado com sucesso, ou BAD_REQUEST se ocorrer algum erro.
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Create(ViaCepApiResponse endereco) {

@@ -2,6 +2,11 @@ package org.example.entities.dtos;
 
 import org.example.entities._BaseEntity;
 
+/**
+ * Classe ProducaoPlasticoGlobal que representa dados de produção global de plástico.
+ * Estende a classe _BaseEntity para incluir um identificador único.
+ * Contém informações sobre a entidade responsável, ano e produção anual de plástico.
+ */
 public class ProducaoPlasticoGlobal extends _BaseEntity {
     private String entidade;
     private String ano;

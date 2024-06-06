@@ -6,6 +6,11 @@ import org.example.infrastructure.api.emailvalidation.EmailValidationApi;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Classe Usuario que representa um usuário do sistema.
+ * Estende a classe _BaseEntity para incluir um identificador único.
+ * Contém informações sobre o nome, usuário, e-mail e senha do usuário.
+ */
 public class Usuario extends _BaseEntity {
     private String nome;
     private String usuario;
@@ -72,9 +77,17 @@ public class Usuario extends _BaseEntity {
                 "} ";
     }
 
+    /**
+     * Valida os dados do usuário.
+     * Verifica se o nome e o usuário não estão vazios.
+     * Valida o E-mail através da API EmailValidation.
+     *
+     * @return um mapa com o resultado da validação. A chave é um booleano indicando sucesso ou falha,
+     * e o valor é uma lista de mensagens de erro, se houver.
+     * @throws RuntimeException se o e-mail não for válido.
+     */
     public Map<Boolean, ArrayList<String>> validate() {
         var errors = new ArrayList<String>();
-
 
         if (nome == null || nome.isBlank())
             errors.add("Nome do usuario não pode ser vazio");
@@ -86,7 +99,6 @@ public class Usuario extends _BaseEntity {
         } catch (Exception e) {
             throw new RuntimeException("O E-mail informado não é valido", e);
         }
-
 
         return !errors.isEmpty() ?
                 Map.of(false, errors) :

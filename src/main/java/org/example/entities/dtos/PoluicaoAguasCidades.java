@@ -2,6 +2,12 @@ package org.example.entities.dtos;
 
 import org.example.entities._BaseEntity;
 
+
+/**
+ * Classe PoluicaoAguasCidades que representa dados de poluição das águas em diferentes cidades.
+ * Estende a classe _BaseEntity para incluir um identificador único.
+ * Contém informações sobre a cidade, região, entidade responsável, qualidade do ar e poluição da água.
+ */
 public class PoluicaoAguasCidades extends _BaseEntity {
     private String cidade;
     private String regiao;

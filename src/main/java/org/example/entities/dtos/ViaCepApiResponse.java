@@ -2,6 +2,11 @@ package org.example.entities.dtos;
 
 import org.example.entities._BaseEntity;
 
+/**
+ * Classe ViaCepApiResponse que representa uma resposta da API ViaCep.
+ * Estende a classe _BaseEntity para incluir um identificador único.
+ * Contém informações sobre o CEP, logradouro, complemento, bairro, localidade e UF.
+ */
 public class ViaCepApiResponse extends _BaseEntity{
     String cep;
     String logradouro;

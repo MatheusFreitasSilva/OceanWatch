@@ -9,10 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Classe PoluicaoAguasCidadesRepository que fornece métodos para interagir com a tabela de informações de poluição das águas das cidades no banco de dados.
+ * Estende a classe _BaseRepository para ter acesso à conexão com o banco de dados.
+ * Implementa a interface _Logger para registrar mensagens de log.
+ */
 public class PoluicaoAguasCidadesRepository extends _BaseRepository implements _Logger<PoluicaoAguasCidadesRepository> {
 
     public static final String TB_NAME = "POLUICAO_AGUAS_CIDADES";
 
+    // Mapeamento das colunas da tabela de informações de poluição das águas das cidades
     public static final Map<String, String> TB_COLUMNS = Map.of(
             "CIDADE", "CIDADE",
             "REGIAO", "REGIAO",
@@ -21,6 +27,11 @@ public class PoluicaoAguasCidadesRepository extends _BaseRepository implements _
             "POLUICAO_DA_AGUA", "POLUICAO_DA_AGUA"
     );
 
+    /**
+     * Retorna uma lista de todas as informações de poluição das águas das cidades armazenadas no banco de dados.
+     *
+     * @return uma lista contendo objetos PoluicaoAguasCidades que representam as informações de poluição das águas das cidades.
+     */
     public List<PoluicaoAguasCidades> ReadAll(){
         var informacoesPoluicao = new ArrayList<PoluicaoAguasCidades>();
         try (var stmt = conn.prepareStatement("SELECT * FROM " + TB_NAME + " ORDER BY ID")) {
@@ -41,6 +52,12 @@ public class PoluicaoAguasCidadesRepository extends _BaseRepository implements _
         return informacoesPoluicao;
     }
 
+    /**
+     * Busca uma informação de poluição das águas das cidades pelo ID no banco de dados.
+     *
+     * @param id o ID da informação de poluição das águas das cidades a ser buscada.
+     * @return um Optional contendo o objeto PoluicaoAguasCidades se encontrado, ou vazio se não encontrado.
+     */
     public Optional<PoluicaoAguasCidades> FindById(int id){
         try (var stmt = conn.prepareStatement("SELECT * FROM " + TB_NAME + " WHERE ID = ?")
         ) {

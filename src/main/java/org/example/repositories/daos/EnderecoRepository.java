@@ -8,9 +8,15 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Classe EnderecoRepository que fornece métodos para interagir com a tabela de endereços no banco de dados.
+ * Estende a classe _BaseRepository para ter acesso à conexão com o banco de dados.
+ * Implementa a interface _Logger para registrar mensagens de log.
+ */
 public class EnderecoRepository extends _BaseRepository implements _Logger<EnderecoRepository> {
     public static final String TB_NAME = "ENDERECO";
 
+    // Mapeamento das colunas da tabela de endereços
     public static final Map<String, String> TB_COLUMNS = Map.of(
             "CEP", "CEP",
             "LOGRADOURO", "LOGRADOURO",
@@ -20,6 +26,11 @@ public class EnderecoRepository extends _BaseRepository implements _Logger<Ender
             "UF", "UF"
     );
 
+    /**
+     * Cria um novo registro de endereço no banco de dados.
+     *
+     * @param endereco o objeto ViaCepApiResponse contendo as informações do endereço a ser criado.
+     */
     public void Create(ViaCepApiResponse endereco){
         try (var stmt = conn.prepareStatement(
                 "INSERT INTO %s(%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)"
@@ -44,6 +55,12 @@ public class EnderecoRepository extends _BaseRepository implements _Logger<Ender
         }
     }
 
+    /**
+     * Busca um registro de endereço pelo CEP no banco de dados.
+     *
+     * @param cep o CEP do endereço a ser buscado.
+     * @return um Optional contendo o objeto ViaCepApiResponse se encontrado, ou vazio se não encontrado.
+     */
     public Optional<ViaCepApiResponse> FindByCep(String cep){
         try (var stmt = conn.prepareStatement("SELECT * FROM " + TB_NAME + " WHERE %s = ?"
                 .formatted(TB_COLUMNS.get("CEP")))
