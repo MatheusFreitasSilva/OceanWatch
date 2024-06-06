@@ -2,6 +2,11 @@ package org.example.entities.dtos;
 
 import org.example.entities._BaseEntity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+
 public class Publicacao extends _BaseEntity {
     private String titulo;
     private String descricao;
@@ -60,11 +65,9 @@ public class Publicacao extends _BaseEntity {
     }
 
     public String getDataPublicacao() {
+        Date data = new Date();
+        this.dataPublicacao = new SimpleDateFormat("dd/MM/yy HH:mm:ss").format(data);
         return dataPublicacao;
-    }
-
-    public void setDataPublicacao(String dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
     }
 
     public int getIdUsuario() {
@@ -103,5 +106,20 @@ public class Publicacao extends _BaseEntity {
                 ", isDenuncia=" + isDenuncia +
                 ", idEndereco=" + idEndereco +
                 "} ";
+    }
+
+    public Map<Boolean, ArrayList<String>> validate() {
+        var errors = new ArrayList<String>();
+
+
+        if (titulo == null || titulo.isBlank())
+            errors.add("Titulo da publicação não pode ser vazio");
+        if (descricao == null || descricao.isBlank())
+            errors.add("Descrição não pode ser vazia");
+
+
+        return !errors.isEmpty() ?
+                Map.of(false, errors) :
+                Map.of(true, errors);
     }
 }

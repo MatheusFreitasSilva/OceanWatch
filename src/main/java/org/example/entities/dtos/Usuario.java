@@ -1,6 +1,7 @@
 package org.example.entities.dtos;
 
 import org.example.entities._BaseEntity;
+import org.example.infrastructure.api.emailvalidation.EmailValidationApi;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -76,9 +77,16 @@ public class Usuario extends _BaseEntity {
 
 
         if (nome == null || nome.isBlank())
-            errors.add("Nome do produto não pode ser vazio");
+            errors.add("Nome do usuario não pode ser vazio");
         if (usuario == null || usuario.isBlank())
             errors.add("Usuário não pode ser vazio");
+        try {
+            if (!EmailValidationApi.emailValidation(email).isFormat_valid())
+                errors.add("O E-mail não é valido");
+        } catch (Exception e) {
+            throw new RuntimeException("O E-mail informado não é valido", e);
+        }
+
 
         return !errors.isEmpty() ?
                 Map.of(false, errors) :
