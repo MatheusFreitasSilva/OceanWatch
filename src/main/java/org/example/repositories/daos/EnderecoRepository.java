@@ -42,7 +42,7 @@ public class EnderecoRepository extends _BaseRepository implements _Logger<Ender
                                 TB_COLUMNS.get("LOCALIDADE"),
                                 TB_COLUMNS.get("UF")))){
             stmt.setString(1, endereco.getCep());
-            stmt.setString(2, endereco.getLocalidade());
+            stmt.setString(2, endereco.getLogradouro());
             stmt.setString(3, endereco.getComplemento());
             stmt.setString(4, endereco.getBairro());
             stmt.setString(5, endereco.getLocalidade());
