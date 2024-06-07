@@ -101,4 +101,33 @@ public class EnderecoRepository extends _BaseRepository implements _Logger<Ender
 
         return idOptional.orElse(0);
     }
+
+    /**
+     * Busca um endereço pelo ID no banco de dados.
+     *
+     * @param id o ID do endereço a ser buscado.
+     * @return um Optional contendo o objeto Usuario se encontrado, ou vazio se não encontrado.
+     */
+    public Optional<ViaCepApiResponse> FindById(int id) {
+        try (var stmt = conn.prepareStatement("SELECT * FROM " + TB_NAME + " WHERE ID = ?")
+        ) {
+            stmt.setInt(1, id);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(new ViaCepApiResponse(
+                        rs.getInt("ID"),
+                        rs.getString("CEP"),
+                        rs.getString("LOGRADOURO"),
+                        rs.getString("COMPLEMENTO"),
+                        rs.getString("BAIRRO"),
+                        rs.getString("LOCALIDADE"),
+                        rs.getString("UF")
+                ));
+            }
+        } catch (Exception e) {
+            LogError("Erro ao filtrar Banco de Dados: ");
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
 }

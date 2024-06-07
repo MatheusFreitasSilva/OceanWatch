@@ -36,8 +36,25 @@ public class EnderecoResource {
     @GET
     @Path("/cep/{cep}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response GetById(@PathParam("cep") String cep) throws Exception {
+    public Response GetByCep(@PathParam("cep") String cep) throws Exception {
         var endereco = enderecoService.GetByCep(cep);
+        return endereco.isPresent() ?
+                Response.ok(endereco.get()).build() :
+                Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    /**
+     * Endpoint para recuperar um endereço pelo CEP.
+     *
+     * @param id o ID do endereço a ser recuperado.
+     * @return um Response contendo o endereço em formato JSON, se encontrado, ou um status NOT_FOUND se não encontrado.
+     * @throws Exception se ocorrer algum erro durante a busca do endereço.
+     */
+    @GET
+    @Path("/id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetById(@PathParam("id") int id) throws Exception {
+        var endereco = enderecoRepository.FindById(id);
         return endereco.isPresent() ?
                 Response.ok(endereco.get()).build() :
                 Response.status(Response.Status.NOT_FOUND).build();
