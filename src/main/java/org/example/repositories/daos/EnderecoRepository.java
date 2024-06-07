@@ -85,4 +85,20 @@ public class EnderecoRepository extends _BaseRepository implements _Logger<Ender
 
         return Optional.empty();
     }
+
+    /**
+     * Obtém o ID de um endereço pelo seu CEP.
+     *
+     * @param cep O Cep do endereço.
+     * @return Resposta com o ID da empresa no formato JSON se encontrado, caso contrário, retorna NOT_FOUND.
+     */
+    public int FindIdByCep(String cep) {
+        Optional<ViaCepApiResponse> enderecos = FindByCep(cep);
+
+        Optional<Integer> idOptional = enderecos.stream()
+                .map(ViaCepApiResponse::getId)
+                .findFirst();
+
+        return idOptional.orElse(0);
+    }
 }

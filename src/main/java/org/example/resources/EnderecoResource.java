@@ -44,6 +44,25 @@ public class EnderecoResource {
     }
 
     /**
+     * Endpoint para recuperar um id de um endereço pelo CEP.
+     *
+     * @param cep o CEP do endereço a ser recuperado.
+     * @return um Response contendo o id do endereço em formato JSON, se encontrado, ou um status NOT_FOUND se não encontrado.
+     * @throws Exception se ocorrer algum erro durante a busca do endereço.
+     */
+    @GET
+    @Path("/getIdByCep/{cep}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetIdByCep(@PathParam("cep") String cep) throws Exception {
+        var endereco_id = enderecoRepository.FindIdByCep(cep);
+        if (endereco_id != 0){
+            return Response.ok(endereco_id).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    /**
      * Endpoint para criar um novo endereço.
      *
      * @param endereco o objeto ViaCepApiResponse representando o endereço a ser criado.
